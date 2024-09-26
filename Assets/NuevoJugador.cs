@@ -11,6 +11,9 @@ public class NuevoJugador : MonoBehaviour
     private UnityEngine.Vector2 minPantalla;
     private UnityEngine.Vector2 maxPantalla;
 
+    [SerializeField]
+    private GameObject prefabprojectile;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -31,6 +34,7 @@ public class NuevoJugador : MonoBehaviour
     void Update()
     {
         Movjugador();
+        DisBala();
     }
 
     private void Movjugador(){
@@ -45,5 +49,12 @@ public class NuevoJugador : MonoBehaviour
         NewPos.y = Mathf.Clamp(NewPos.y, minPantalla.y,maxPantalla.y);
         transform.position = NewPos;
         //Debug.Log(DirX+" x , "+DirY+" y. Vel = "+_vel);
+    }
+    private void DisBala() {
+        
+        if (Input.GetKey(KeyCode.Space)) {
+            GameObject Bala = Instantiate(prefabprojectile);
+            Bala.transform.position = transform.position;
+        }
     }
 }
