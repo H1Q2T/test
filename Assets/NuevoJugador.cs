@@ -52,7 +52,7 @@ public class NuevoJugador : MonoBehaviour
     }
     private void DisBala() {
         
-        if (Input.GetKey(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             GameObject Bala = Instantiate(prefabprojectile);
             Bala.transform.position = transform.position;
         }
