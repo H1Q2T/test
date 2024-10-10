@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class NuevoJugador : MonoBehaviour
 {
     private float _vel;
+    private int vidas;
     private UnityEngine.Vector2 minPantalla;
     private UnityEngine.Vector2 maxPantalla;
 
@@ -15,11 +17,14 @@ public class NuevoJugador : MonoBehaviour
     private GameObject prefabprojectile;
     [SerializeField]
     private GameObject prefabexplo;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI TextoVidas;
 
     // Start is called before the first frame update
     void Start()
     { 
        _vel = 30;
+       vidas = 3;
        minPantalla = Camera.main.ViewportToWorldPoint(new UnityEngine.Vector2(0,0));
        maxPantalla = Camera.main.ViewportToWorldPoint(new UnityEngine.Vector2(1,1));
 
@@ -56,9 +61,18 @@ public class NuevoJugador : MonoBehaviour
         Debug.Log(objetoTocado.tag);
         if (objetoTocado.tag == "Obstaculo")
         {
-            GameObject explosion = Instantiate(prefabexplo);
-            explosion.transform.position = transform.position;
-            Destroy(gameObject);
+            vidas--;
+            if (vidas != 0) {
+                TextoVidas.text = "Vidas: "+vidas;
+            }else {
+                TextoVidas.text = "¡Has perdido!";
+            }
+            if (vidas <= 0) {
+                GameObject explosion = Instantiate(prefabexplo);
+                explosion.transform.position = transform.position;
+                Destroy(gameObject);
+                SceneManager.LoadScene("PantallaMuerte");
+            }
         }
     }
     
