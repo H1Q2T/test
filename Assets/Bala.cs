@@ -15,14 +15,20 @@ public class Bala : MonoBehaviour
      _vel = 20;
      maxPantalla = Camera.main.ViewportToWorldPoint(new UnityEngine.Vector2(1,1));
     }
-
+    private void OnTriggerEnter2D(Collider2D objetoTocado) {
+        Debug.Log(objetoTocado.tag);
+        if (objetoTocado.tag == "Obstaculo")
+        {
+            Destroy(gameObject);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         //Boolean Espacio = Input.GetKey(KeyCode.Space);
         //if (Espacio) {
             //BulletMoving = true;
-        //}
+        //} 
 
         //if (BulletMoving) {
             UnityEngine.Vector2 PosActual = transform.position;

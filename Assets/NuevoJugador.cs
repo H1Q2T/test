@@ -13,11 +13,13 @@ public class NuevoJugador : MonoBehaviour
 
     [SerializeField]
     private GameObject prefabprojectile;
+    [SerializeField]
+    private GameObject prefabexplo;
 
     // Start is called before the first frame update
     void Start()
     { 
-       _vel = 20;
+       _vel = 30;
        minPantalla = Camera.main.ViewportToWorldPoint(new UnityEngine.Vector2(0,0));
        maxPantalla = Camera.main.ViewportToWorldPoint(new UnityEngine.Vector2(1,1));
 
@@ -50,6 +52,16 @@ public class NuevoJugador : MonoBehaviour
         transform.position = NewPos;
         //Debug.Log(DirX+" x , "+DirY+" y. Vel = "+_vel);
     }
+    private void OnTriggerEnter2D(Collider2D objetoTocado) {
+        Debug.Log(objetoTocado.tag);
+        if (objetoTocado.tag == "Obstaculo")
+        {
+            GameObject explosion = Instantiate(prefabexplo);
+            explosion.transform.position = transform.position;
+            Destroy(gameObject);
+        }
+    }
+    
     private void DisBala() {
         
         if (Input.GetKeyDown(KeyCode.Space)) {
